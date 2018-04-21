@@ -1,0 +1,98 @@
+<!-- Expanded Book Modal -->
+<div id='modalOverlay'></div>
+<div id="stdModal" class="myexpModal" role="dialog">
+  <div class="modal-dialog std-modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="std-modal-body">
+        <div class="expanded-modal-top">
+        <div class="blackened">
+        <div id='bookModalBGImg' class="expanded-background-box"></div>
+        </div>
+         <span id='bookModalImg'>Image</span>
+        <div class="expanded-book-title"><span id='bookModalTitle'>Title</span></div>
+        <div class="expanded-book-author"><a id='bookModalAuthor'>Author</a></div>
+        <button type="button" id='closeModal' class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+        <div class="expanded-book-genre"><span id='bookModalGenre'>Genre</span></div>
+         <div class='rating-stars text-center'>
+          <ul id='stars-expanded'>
+            <li class='star' title='Poor' data-value='1'>
+              <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Fair' data-value='2'>
+              <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Average' data-value='3'>
+              <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Good' data-value='4'>
+              <i class='fa fa-star fa-fw'></i>
+            </li>
+            <li class='star' title='Excellent' data-value='5'>
+              <i class='fa fa-star fa-fw'></i>
+            </li>
+          </ul>
+        </div>
+
+        <div class="views-expanded"><img class="standard-element-icon-expanded" src="icons/eye-white.png"><span class="view-number-expanded">2.3M</span> </div>
+
+            <div class="read-later-icon-expanded"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+
+        </div>
+          <div class="expanded-modal-middle">
+
+        <div id='modalReadBtn'><a class="read-button" id='modalRead'><i class="fa fa-book" aria-hidden="true"></i>Read</a></div>
+
+        <div><button class="shelf-button"><i class="fa fa-plus" aria-hidden="true"></i>My Shelf</button> </div>
+
+            </div>
+
+
+        <div class="expanded-modal-bottom">
+<div class="tabs-box">
+          <ul class="nav nav-pills" id="tabs-ul">
+  <li class="active expanded-tabs lefter"><a class="greyed-links active" data-toggle="pill" href="#about-tab">About</a></li>
+  <li class=" expanded-tabs"><a class="greyed-links" data-toggle="pill" href="#episodes-tab">Episodes</a></li>
+  <li class=" expanded-tabs"><a class="greyed-links" data-toggle="pill" href="#similar-tab">Similar</a></li>
+</ul>
+</div>
+<div class="tab-content">
+  <div id="about-tab" class="tab-pane show fade in active">
+    <p id="expanded-summary"><span id='bookModalDesc'>Description</span></p>
+
+    <div class="expanded-additional-info">
+
+      <div class="expanded-info-titles">Format</div>
+      <div class="expanded-info-val"><span id='bookModalCat'>Format</span></div>
+        <div class="expanded-info-titles"> Pages</div>
+      <div class="expanded-info-val"> 432</div>
+        <div class="expanded-info-titles"> Upload Date</div>
+      <div class="expanded-info-val"><span id='bookModalUDate'>Uploaded on</span></div>
+
+
+      </div>
+  </div>
+  <div id="episodes-tab" class="tab-pane fade">
+          <div class="featured-episode-list" id='bookModalEpisodes'>
+            <!-- <span id='bookModalEpisodes'>Episodes Here</span> -->
+            <!-- <div class="featured-episode-list-element">
+              <div class="fet-ep-no-header">Episode 1:</div>
+          <div class="fet-ep-list-name">Pilot</div>
+            </div> -->
+      </div>
+
+  </div>
+  <div id="similar-tab" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+
+
+          </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<script src="js/bootstrap-tagsinput.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<script>
+
+  $(document).ready(function(){
+
+    var curUserID = $('#theUserID').attr('data-id');
+    var imageInput = document.getElementById('file-input');
+    var imagePlaceholder = document.getElementById('placeholder-image');
+
+    $('#file-input').on('change',function(){
+      readURL(imageInput);
+    });
+
+    $('#cancelBtn').on('click',function(event){
+      event.preventDefault();
+      window.location.href = '/';
+    });
+
+    $('#newBookForm').submit(function(event){
+      event.preventDefault();
+      var title = $('#title').val();
+      var desc = $('#editor-description').val();
+      var tagSpans = document.getElementsByClassName('tag');
+      var tagVal = document.getElementById('tagval');
+      var catdrp = document.getElementById('category-dropdown');
+      var gendrp = document.getElementById('genre-dropdown');
+      var landrp = document.getElementById('language-dropdown');
+      var copydrp = document.getElementById('copyright-dropdown');
+      var dropmat = document.getElementById('dropmat');
+      var isMatChk = document.getElementById('isMat');
+      var tags = [];
+      var copyrgt;
+      var isMat;
+      var noErrors = true;
+      for(i=0;i<tagSpans.length;i++){
+      	tags[i] = tagSpans[i].innerHTML;
+      }
+      tagval.value = '';
+      for(j=0;j<tags.length;j++){
+        if(j==tags.length-1){
+          tagVal.value += tags[j];
+        }else{
+          tagVal.value += tags[j]+'/';
+        }
+      }
+
+      if(copydrp.value=='no'){
+        copyrgt = 0;
+      }else{
+        copyrgt = 1;
+      }
+
+      if(isMatChk.checked == false){
+        isMat = 0;
+      }else if(isMatChk.checked == true){
+        isMat = 1;
+      }
+
+      dropmat.value = catdrp.value+'^'+gendrp.value+'^'+landrp.value+'^'+copyrgt+'^'+isMat+'^'+curUserID;
+
+      if(title.includes('^')){
+        alert('Title container an invalid character (^)');
+        noErrors = false;
+      }else if(title.includes('|')){
+        alert('Title container an invalid character (|)');
+        noErrors = false;
+      }else if(desc.includes('^')){
+        alert('Description container an invalid character (^)');
+        noErrors = false;
+      }else if(desc.includes('|')){
+        alert('Description container an invalid character (|)');
+        noErrors = false;
+      }else if(imageInput.files.length == 0){
+        alert('Please enter a cover for your story');
+      }else if(tagSpans.length < 5){
+        alert('Please enter 5 or more tags');
+        noErrors = false;
+      }else{
+        for(k=0;k<tags.length;k++){
+          if(tags[k].includes('^')){
+            alert('Tags contains an invalid character (^)');
+            noErrors = false;
+            break;
+          }else if(tags[k].includes('|')){
+            alert('Tags contains an invalid character (|)');
+            noErrors = false;
+            break;
+          }
+        }
+      }
+
+      if(noErrors){
+        $(this).ajaxSubmit({
+          success: function(response){
+            console.log('book added');
+            window.location.href = '/';
+          }
+        });
+      }
+
+    });
+
+    function readURL(input) {
+
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            imagePlaceholder.setAttribute('src',e.target.result);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+  });
+</script>

@@ -1,0 +1,21 @@
+<% if(userviewbooks.length != 0){ %>
+  <div class="coral-headers"><span class="lining">Continue Reading</span></div>
+   <div class="cont-responsive ">
+
+  <% userviewbooks.forEach(function(userviewbook){ %>
+       
+    <div class="continue-slide-dimensions" data-id='<%= userviewbook.title+'^'+userviewbook.authorID+'^'+userviewbook.rating+'^'+userviewbook.genre+'^'+userviewbook.imageURL+'^'+userviewbook.description+'^'+userviewbook.category+'^'+userviewbook.uploadDate+'^'+userviewbook.language+'^'+userviewbook.isOriginal+'^'+userviewbook.isMature+'^'+userviewbook.copyright+'^'+userviewbook._id+'^'%>'>
+      <img class="continue-image" src="<%= userviewbook.imageURL %>"><img class="gradient-positioning" src="posters/gradient.png">
+      <div class="genre-write-titles"> <%= userviewbook.title %> </div>
+      <div class="genre-write-authors" id='<%= userviewbook._id %>continue'> Justin Phillips</div>
+      <div class="progress-bar-wrapper">
+        <% userviews.forEach(function(userview){ if(userview.bookID.toString() == userviewbook._id){ %>
+      <div class="progress-bar-coral" style='width: <%= userview.percentViewed %>%;'></div>
+      </div>
+      <div class="percentage-done"> <%= userview.percentViewed %>% Completed</div>
+    </div>
+       
+  <% }});}); %>
+  </div>
+  <div class="expanded-book-view"></div>
+<% } %>

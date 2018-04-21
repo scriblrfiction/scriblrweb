@@ -1,0 +1,9 @@
+<div class="body-container">
+     <!-- ORIGINALS SLIDERS BEGINS -->
+
+<div class="coral-headers"><span class="lining"> Scriblr Originals</span> </div>
+<div class="responsive">
+  <% books.forEach(function(book){ if(book.isOriginal){ %>
+      <div class="slide-dimensions" data-id='<%= book.title+'^'+book.authorID+'^'+book.rating+'^'+book.genre+'^'+book.imageURL+'^'+book.description+'^'+book.category+'^'+book.uploadDate+'^'+book.language+'^'+book.isOriginal+'^'+book.isMature+'^'+book.copyright+'^'+book._id+'^'%>'><img class="original-image" src="<%= book.imageURL %>"></div>
+  <%}});%>
+</div>

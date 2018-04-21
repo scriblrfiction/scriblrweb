@@ -1,0 +1,186 @@
+<html>
+  <head>
+  <title>Scriblr</title>
+  <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+  <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="js/tags-input.js"></script>
+      <meta charset="UTF-8">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="/"><a href="/"><img id="nib-logo" src="icons/scriblrnib.png"> <img src="posters/logo.png" id="logo_navbar" /></a></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <% if(curUser){ %>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><div id="write-button-wannabe">Write</div></a>
+                  <div class="dropdown-menu" id="write-dropdown-menu" aria-labelledby="navbarDropdown">
+                  <div class="row">
+                      <a class="write-dropdown dropdown-item drop-left-align write-positioning" href="new">
+                          New Story <img class="write-list-icons" src="icons/add.png"></a>
+                  </div>
+                      <div class="row">
+                      <a class="write-dropdown dropdown-item drop-left-align write-positioning" href="#" data-toggle="modal" data-target="#continueModal">
+                          Continue Story<img class="write-list-icons" src="icons/play.png"></a>
+                  </div>
+              </li>
+            <% } %>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse<img class="browse-icons" src="icons/downarrow.png"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                <div class="row">
+                    <div class="col-xs-6 drop-border">
+                      <a class="dropdown-item drop-left-align" href="shelf.html">My Shelf</a>
+                      <a class="dropdown-item drop-left-align" href="shelf.html">Originals</a>
+                      <% categories.forEach(function(category){ %>
+                        <a class="dropdown-item drop-left-align" href="/categories/<%= category._id %>"><%= category.category %></a>
+                      <%}); %>
+                      <a class="dropdown-item drop-left-align" href="#">Interactive</a>
+                    </div>
+                    <div class="col-xs-6">
+                      <% genres.forEach(function(genre){ %>
+                        <a class="dropdown-item drop-right-align" href="/genres/<%= genre._id %>"><%= genre.genre %></a>
+                      <% }); %>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item search-combo">
+                <a class="nav-link" href="#" id="search_button">
+                    <img id="search-icon" src="icons/search.png">
+                    <input id="search-box" placeholder="Search for books, authors and tags here." type="text">
+                </a>
+            </li>
+            <% if(curUser){ %>
+            <span id="chhotu-icons">
+              <li class="nav-item">
+                <a class="nav-link" href="chat.html" id="msg-button"><i class="fa fa-envelope nav-icons left" aria-hidden="true"></i></a>
+            </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="notif-button"><i class="fa fa-bell nav-icons left" aria-hidden="true"></i></a>
+            </li>
+                </span>
+
+              <li class="nav-item" id="profile-dropdown">
+              <a class="nav-link" href="#"><img class="profile-nav" src="<%= curUser.imageUrl %>"><img class="browse-icons" id="profile-down-arrow" src="icons/downarrow.png"></a>
+                  <div id="profile-dropdown-content">
+                  <p> <a href="/profile">My Profile</a></p>
+                  <p><a id="coral-logout" href="/logout"> Logout</a></p>
+                  </div>
+              </li>
+              <% } else { %>
+              <li>
+                <button id="sign-up-btn" class="btn btn-danger nav-item"  data-toggle="modal" data-target="#myModal">Sign Up</button>
+              </li>
+              <% } %>
+          </ul>
+        </div>
+        </div>
+      </nav>
+      <span id='theUserID' data-id='<%if(curUser){%><%= curUser._id %><%}else{%>none<%}%>'></span>
+
+
+      <!--Sign In Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="sign-up-modal-body">
+              <form action='/login' method='post'>
+                <div class="form-group">
+                  <input type="text" name='email' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input type="password" name='password' class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <h6>New to Scriblr?<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#myModal1"> Sign Up </a></h6>
+                <button type="submit" class="btn btn-danger sign-in">Start Reading!</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Sign Up Modal -->
+      <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Sign Up</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="sign-up-modal-body">
+              <form action='/register' method='post' id='registerForm'>
+                <div class="form-group">
+                  <input type="text" name='penname' class="form-control" id="regPenname" placeholder="Pen name (display name)">
+                </div>
+                <div class="form-group">
+                  <input type="text" name='username' class="form-control" id="regUsername" placeholder="Username">
+                </div>
+                <div class="form-group">
+                  <input type="text" name='email' class="form-control" id="regEmail" aria-describedby="emailHelp" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input type="password" name='password' class="form-control" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-danger sign-in" id='signUpBtn' >Start Reading!</button>
+            </form>
+            <p id='registerError'>
+            </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trigger the modal with a button -->
+
+  <!-- Modal -->
+  <div id="continueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" id="continue-editor-modal">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="continue-write-header">My Stories</h4>
+        </div>
+        <div class="modal-body">
+
+          <% if(userbooks){userbooks.forEach(function(book){ %>
+            <div class="continue-write-element">
+              <img class="continue-write-image" src ="<%= book.imageURL %>">
+              <h5 class="continue-editor-title"><%= book.title %></h5>
+              <p class="continue-editor-summary"><%= book.description %></p>
+              <p class="continue-editor-info created-alignment"> Created:<span class="continue-editor-bold"><%= book.uploadDate %></span></p>
+              <p class="continue-editor-info"> Last Updated: <span class="continue-editor-bold"> 31st June, 2017.</span></p>
+              <div class="continue-editor-right">
+                <a class="continue-write-button" href='/editor/<%= book._id %>'>Continue Writing </a>
+                <div class="view-as-reader"><a class="unstyled-links" href="/reader/<%= book._id %>/1"><img class="view-as-reader-icon" src="icons/eye.png"> View as reader </a></div>
+                <div class="view-as-reader"><a class="unstyled-links" href="/editbook/<%= book._id %>"><img class="view-as-reader-icon" src="icons/edit.png"> Edit Story Details </a></div>
+              </div>
+            </div>
+          <% })}; %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>

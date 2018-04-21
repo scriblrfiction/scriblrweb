@@ -1,0 +1,38 @@
+<!--- RECOMMENDED SLIDER BEGINS -->
+
+
+<div class="coral-headers move-this-up"><span class="lining">Recommended</span> </div>
+
+       <div class="rec-responsive up240">
+
+<% books.forEach(function(book){ if(!book.isOriginal){ %>
+
+    <div class="rec-slide-dimensions" data-id='<%= book.title+'^'+book.authorID+'^'+book.rating+'^'+book.genre+'^'+book.imageURL+'^'+book.description+'^'+book.category+'^'+book.uploadDate+'^'+book.language+'^'+book.isOriginal+'^'+book.isMature+'^'+book.copyright+'^'+book._id+'^'%>'>
+       <img class="rec-image" src="<%= book.imageURL %>">
+       <div class="rec-write-titles"><%= book.title %></div>
+       <div class="rec-write-authors" id='<%= book._id %>'> Justin Phillips</div>
+        <div class='rating-stars text-center'>
+    <ul id='stars'>
+     <li class='star' title='Poor' data-value='1'>
+       <i class='fa fa-star fa-fw'></i>
+     </li>
+     <li class='star' title='Fair' data-value='2'>
+       <i class='fa fa-star fa-fw'></i>
+     </li>
+     <li class='star' title='Average' data-value='3'>
+       <i class='fa fa-star fa-fw'></i>
+     </li>
+     <li class='star' title='Good' data-value='4'>
+       <i class='fa fa-star fa-fw'></i>
+     </li>
+     <li class='star' title='Excellent' data-value='5'>
+       <i class='fa fa-star fa-fw'></i>
+     </li>
+    </ul>
+    </div>
+       <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+      <p class="non-expanded-summary"> <%= book.description %> </p>
+    </div>
+<% }}); %>
+
+</div>

@@ -1,0 +1,399 @@
+          <footer class="smaller">
+          <div> <img class="footer-logo" src="posters/logo.png"></div>
+         <i class="fa fa-facebook" aria-hidden="true"></i>
+         <i class="fa fa-instagram" aria-hidden="true"></i>
+         <i class="fa fa-twitter" aria-hidden="true"></i>
+         <p class="copyright-footer"><i class="fa fa-copyright" aria-hidden="true"></i> Scriblr,2017.</p>
+
+         <div class="footer-right-links">
+         <a class="footer-links" href="#"> About</a>
+          <a class="footer-links" href="#"> Jobs</a>
+             <a class="footer-links" href="#"> Team</a>
+          <a class="footer-links" href="#"> Terms & Conditions</a>
+             <a class="footer-links" href="#"> Help</a>
+         </div>
+    </footer>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script src="https://use.fontawesome.com/8f37611cde.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+  <script src="js/countrypicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/3.1.0/jquery.dotdotdot.js"></script>
+<script>
+  $(document).ready(function(){
+
+    var modal = document.getElementById('stdModal');
+    var modalOverlay = document.getElementById('modalOverlay');
+    var bookTitleField = document.getElementById('bookModalTitle');
+    var bookImgField = document.getElementById('bookModalImg');
+    var bookImgBGField = document.getElementById('bookModalBGImg');
+    var bookAuthorField = document.getElementById('bookModalAuthor');
+    var bookGenreField = document.getElementById('bookModalGenre');
+    var bookDescField = document.getElementById('bookModalDesc');
+    var bookUDateField = document.getElementById('bookModalUDate');
+    var bookCatField = document.getElementById('bookModalCat');
+    var bookEpsField = document.getElementById('bookModalEpisodes');
+    var bookReadBtn = document.getElementById('modalRead');
+    var bookData = '';
+    var starsList = document.getElementById('stars-expanded');
+    var bookID;
+    var stars = [];
+    var bookTitle, bookAuthorID, bookAuthor, bookRating, bookGenre, bookImageURL, bookDesc, bookCat, bookUDate, bookLang, bookIsOrginal, bookIsMature, bookCopyright;
+    var count=0;
+    var curUserID = $('#theUserID').attr('data-id');
+    var regUserField = document.getElementById('regUsername');
+    var regPenField = document.getElementById('regPenname');
+    var regEmailField = document.getElementById('regEmail');
+    var regErrorField = document.getElementById('registerError');
+    var alphaExp = /^[a-zA-Z0-9]+$/;
+    var alphabetExp = /^[a-zA-Z]+$/;
+    var penExp = /^[a-zA-Z]+( [a-zA-Z]+)$/;
+    var numberExp = /^[0-9]+$/;
+    var emailExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var regError = '';
+    var registerForm = document.getElementById('registerForm');
+    var recommendedBooks = document.getElementsByClassName('rec-slide-dimensions');
+    var continueBooks = document.getElementsByClassName('continue-slide-dimensions');
+    var atts,thisBookID,authID = '';
+
+    for(i=0;i<continueBooks.length;i++){
+      atts = $(continueBooks[i]).attr('data-id');
+      authID = atts.split('^')[1];
+      thisBookID = atts.split('^')[12];
+      $.ajax({
+        type: 'POST',
+        url: '/authorName',
+        data: 'authID='+ authID+'&bookID='+thisBookID,
+        datatype: 'json',
+        success: function(response){
+          document.getElementById(response.split(';')[1]+'continue').innerHTML = response.split(';')[0];
+        }
+      });
+    }
+
+    for(i=0;i<recommendedBooks.length;i++){
+      atts = $(recommendedBooks[i]).attr('data-id');
+      authID = atts.split('^')[1];
+      thisBookID = atts.split('^')[12];
+      $.ajax({
+        type: 'POST',
+        url: '/authorName',
+        data: 'authID='+ authID+'&bookID='+thisBookID,
+        datatype: 'json',
+        success: function(response){
+          document.getElementById(response.split(';')[1]).innerHTML = response.split(';')[0];
+        }
+      });
+    }
+
+    for(j=0;j<starsList.childNodes.length;j++){
+      if(starsList.childNodes[j].className == 'star'){
+        stars[count] = starsList.childNodes[j];
+        count++;
+      }
+    }
+
+    $('#modalRead').on('click',function(){
+      window.href.location = '';
+    });
+
+    $('#closeModal').on('click', function(){
+      hideModal();
+    });
+
+    $('.slide-dimensions').on('click', function(){
+      bookData = $(this).attr('data-id');
+      showModal();
+    });
+
+    $('body').on('click',function(event){
+      if($(event.target).parents().hasClass('rec-slide-dimensions')){
+        var parent = $(event.target).parents('.rec-slide-dimensions')[0];
+        bookData = $(parent).attr('data-id');
+        showModal();
+      }
+    });
+
+    $('#signUpBtn').on('click',function(event){
+
+      event.preventDefault();
+      regError = '';
+      if(regPenField.value.length == 0){
+        regError = 'Pen name cannot be empty';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regPenField.focus();
+      }else if(regPenField.value.length < 3){
+        regError = 'Pen name must be 3 characters or more';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regPenField.focus();
+      }else if(regPenField.value.includes(' ') && !regPenField.value.charAt(regPenField.value.indexOf(' ')+1)){
+          regError = 'Pen name be one word or two words separated by a space';
+          regErrorField.innerHTML = regError;
+          regErrorField.style.display = 'block';
+          regPenField.focus();
+      }else if(!regPenField.value.match(penExp)){
+        if(regPenField.value.match(alphabetExp)){
+          regErrorField.innerHTML = '';
+          regErrorField.style.display = 'none';
+          checkUsername();
+        }else{
+          regError = 'Pen name should only consists of alphabets and may contain only one space';
+          regErrorField.innerHTML = regError;
+          regErrorField.style.display = 'block';
+          regPenField.focus();
+        }
+      }else{
+        regErrorField.innerHTML = '';
+        regErrorField.style.display = 'none';
+        checkUsername();
+      }
+
+    });
+
+    $('#stars-expanded').on('click',function(){
+      postRating(''+bookID);
+    });
+
+    $('#modalOverlay').on('click', function(){
+      hideModal();
+    });
+
+    function checkUsername(){
+
+      if(regUserField.value.length == 0){
+        regError += 'Username cannot be empty';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regUserField.focus();
+      }else if(!regUserField.value.match(alphaExp)){
+        regError += 'Username must only consist of alphabets and numbers';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regUserField.focus();
+      }else if(regUserField.value.substring(0,1).match(numberExp)){
+        regError += 'Username must begin with an alphabet';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regUserField.focus();
+      }else{
+        $.ajax({
+          type: 'POST',
+          url: '/checkUserAvailable',
+          data: 'regUser='+regUserField.value,
+          datatype: "json",
+          success: function(response){
+            if(response==1){
+              regError += 'Username not available';
+              regErrorField.innerHTML = regError;
+              regErrorField.style.display = 'block';
+              regUserField.focus();
+            }else if(response==0){
+              checkEmail();
+            }
+          }
+        });
+      }
+    }
+
+    function checkEmail(){
+      regError = '';
+
+      if(regEmailField.value.length == 0){
+        regError += 'Email cannot be empty';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regEmailField.focus();
+      }else if(regEmailField.value.substring(0,1).match(numberExp)){
+        regError += 'Email must begin with an alphabet';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regEmailField.focus();
+      }else if(!regEmailField.value.match(emailExp)){
+        regError += 'Please enter a valid email address';
+        regErrorField.innerHTML = regError;
+        regErrorField.style.display = 'block';
+        regEmailField.focus();
+      }else{
+        $.ajax({
+          type: 'POST',
+          url: '/checkEmailAvailable',
+          data: 'regEmail='+regEmailField.value,
+          datatype: "json",
+          success: function(response){
+            if(response==1){
+              regError += 'Email not available';
+              regErrorField.innerHTML = regError;
+              regErrorField.style.display = 'block';
+              regEmailField.focus();
+            }else if(response==0){
+              regError = '';
+              regErrorField.innerHTML = regError;
+              regErrorField.style.display = 'none';
+              registerForm.submit();
+            }
+          }
+        });
+      }
+    }
+
+    function showModal(){
+      bookAtts = bookData.split('^');
+      bookTitle = bookAtts[0];
+      bookAuthorID = bookAtts[1];
+      bookRating = bookAtts[2];
+      bookGenre = bookAtts[3];
+      bookImageURL = bookAtts[4];
+      bookDesc = bookAtts[5];
+      bookCat = bookAtts[6];
+      bookUDate = bookAtts[7];
+      bookLang = bookAtts[8];
+      bookIsOrginal = bookAtts[9];
+      bookIsMature = [10];
+      bookCopyright = [11];
+      bookID = bookAtts[12];
+      bookTitleField.innerHTML = bookTitle;
+      bookGenreField.innerHTML = bookGenre;
+      bookImgField.innerHTML = "<img class='expanded-image' src='"+bookImageURL+"'>";
+      bookImgBGField.style.background = "linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('"+bookImageURL+"') no-repeat center center/cover";
+      bookDescField.innerHTML = bookDesc;
+      bookCatField.innerHTML = bookCat;
+      bookUDateField.innerHTML = bookUDate;
+      bookEpsField.innerHTML = '';
+      bookReadBtn.href = '/reader/'+bookID+'/1';
+      // for(i=0;i<episodes.length-1;i++){
+      //   episode = episodes[i];
+      //   episodeAtts = episode.split('~');
+      //   episodeNumber = episodeAtts[0];
+      //   episodeTitle = episodeAtts[1];
+      //   bookEpsField.innerHTML += "<a href='#'><div class='featured-episode-list-element'><div class='fet-ep-no-header'>Episode "+episodeNumber+":</div><div class='fet-ep-list-name'>"+episodeTitle+"</div></div></a>";
+      // }
+      getEpisodes(''+bookID);
+      getRating(''+bookID);
+      getAuthor(''+bookID);
+      modalOverlay.style.display = 'block';
+      modal.style.display = 'block';
+    }
+
+    function getEpisodes(bookID){
+
+      var epTitle = '';
+      var epNo = '';
+
+      $.ajax({
+        type: 'POST',
+        url: '/getEpisodes',
+        data:'bookID='+bookID,
+        datatype: 'json',
+        success: function(response){
+          for(i=0;i<response.split(';').length-1;i++){
+            epTitle = response.split(';')[i].split('/')[0];
+            epNo = response.split(';')[i].split('/')[1];
+            bookEpsField.innerHTML += "<div class='featured-episode-list-element'><a href='/reader/"+bookID+"/"+epNo+"'><div class='fet-ep-no-header'>Episode "+epNo+":</div><div class='fet-ep-list-name'>"+epTitle+"</div></a></div>";
+          }
+        }
+      });
+
+    }
+
+    function getRating(theID){
+      var book;
+      var bookObjAtts;
+      $.ajax({
+        type:'POST',
+        url:'/getRating',
+        data:"bookID="+theID,
+        datatype: "json", // expecting JSON to be returned
+        success: function (result) {
+          book = result.split('{"success" : "{ ')[1];
+          bookObjAtts = book.split('", "status" : 200}')[0];
+          bookRating = bookObjAtts.split('rating: ')[1].split(',')[0];
+          //alert(bookRating);
+          for(k=0;k<stars.length;k++){
+            stars[k].classList.remove('selected');
+          }
+
+          for(l=0;l<bookRating;l++){
+            stars[l].classList.add('selected');
+          }
+
+            if(result.status == 200){
+                self.isEditMode(!self.isEditMode());
+            }
+        },
+        error: function(result){
+            alert(result);
+        }
+       }
+      );
+    }
+
+    function getAuthor(bookID){
+      var userName = '';
+      var penName = '';
+
+      $.ajax({
+        type: 'POST',
+        url: '/getModalAuthor',
+        data: 'bookID='+bookID,
+        datatype: 'json',
+        success: function(response){
+          penName = response.split('Pen:')[1].split(',User:')[0];
+          userName = response.split('Pen:')[1].split(',User:')[1];
+          bookAuthorField.innerHTML = penName;
+          bookModalAuthor.href='/profile/'+userName;
+        }
+      });
+
+    }
+
+    function postRating(theID){
+
+      var theRating;
+
+      for(t=0;t<stars.length;t++){
+        if(stars[t].classList.contains('selected')){
+          theRating = t;
+        }
+      }
+
+      theRating += 1;
+
+      var book;
+      var bookObjAtts;
+      $.ajax({
+        type:'POST',
+        url:'/postRating',
+        data:"bookID="+theID+"&givenRating="+theRating+"&theCurUserID="+curUserID,
+        datatype: "json", // expecting JSON to be returned
+        success: function (result) {
+          book = result.split('{"success" : "{ ')[1];
+          bookObjAtts = book.split('", "status" : 200}')[0];
+          bookRating = bookObjAtts.split('rating: ')[1].split(',')[0];
+            if(result.status == 200){
+                self.isEditMode(!self.isEditMode());
+            }
+        },
+        error: function(result){
+            alert(result);
+        }
+       }
+      );
+
+    }
+
+    function hideModal(){
+      modalOverlay.style.display = 'none';
+      modal.style.display = 'none';
+    }
+
+  });
+</script>
+</body>
+</html>

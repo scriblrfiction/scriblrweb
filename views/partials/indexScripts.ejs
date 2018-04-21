@@ -1,0 +1,627 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+
+$('.responsive').slick({
+dots: false,
+arrows: true,
+infinite: true,
+speed: 50,
+slidesToShow: 6,
+rows:1,
+
+slidesToScroll: 6,
+responsive: [
+  {
+    breakpoint: 1780,
+    settings: {
+      slidesToShow: 5,
+      slidesToScroll: 5,
+      centerMode: true,
+      infinite: true,
+      dots: false
+    }
+
+  },
+    {
+    breakpoint: 1620,
+    settings: {
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      infinite: true,
+      dots: false
+    }
+
+  },
+    {
+    breakpoint: 1510,
+    settings: {
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      infinite: true,
+      dots: false
+    }
+
+  },
+    {
+    breakpoint: 1330,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 3,
+        initialSlide:1,
+      infinite: true,
+      dots: false
+    }
+
+  },
+  {
+    breakpoint: 1130,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 3
+    }
+  },
+    {
+    breakpoint: 910,
+    settings: {
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: false
+    }
+
+  },
+    {
+    breakpoint: 720,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: false
+    }
+
+  },
+    {
+    breakpoint: 560,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: false
+    }
+
+  },
+
+  {
+    breakpoint: 480,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+        dots: false
+
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+
+
+
+
+
+
+      $('.cont-responsive').slick({
+dots: false,
+arrows: true,
+infinite: true,
+speed: 100,
+
+slidesToShow: 4,
+rows:1,
+slidesToScroll: 4,
+responsive: [
+  {
+    breakpoint: 1710,
+    settings: {
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      infinite: true,
+      dots: false
+    }
+  },
+  {
+    breakpoint: 1320,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1,
+        dots:false
+    }
+  },
+  {
+    breakpoint: 877,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+        dots:false
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+
+
+      $('.community-responsive').slick({
+dots: false,
+arrows: true,
+infinite: true,
+speed: 50,
+ centerMode: false,
+slidesToShow: 2,
+rows:1,
+slidesToScroll: 2,
+responsive: [
+  {
+    breakpoint: 1710,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: false
+    }
+  },
+  {
+    breakpoint: 1320,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1,
+        dots:false
+    }
+  },
+  {
+    breakpoint: 877,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+        dots:false
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+
+              $('.ep-responsive').slick({
+dots: false,
+arrows: true,
+infinite: true,
+speed: 100,
+centerMode: false,
+slidesToShow: 4,
+slidesToScroll: 4,
+responsive: [
+  {
+    breakpoint: 1710,
+    settings: {
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      infinite: true,
+      dots: false
+    }
+  },
+  {
+    breakpoint: 1320,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 3,
+        dots:false
+    }
+  },
+  {
+    breakpoint: 877,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 2,
+        dots:false
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+
+
+
+       $('.rec-responsive').slick({
+dots: false,
+arrows: true,
+infinite: true,
+initialSlide:0,
+speed: 300,
+slidesToShow: 2,
+rows: 2,
+slidesToScroll: 1,
+responsive: [
+  {
+    breakpoint: 1710,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: false
+    }
+  },
+  {
+    breakpoint: 1320,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+        dots:false
+    }
+  },
+  {
+    breakpoint: 877,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+        dots:false
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+
+
+
+
+
+
+      $('.single-item').slick({
+          dots:false,
+          arrows:true
+      }
+      );
+  });
+</script>
+
+ <script>
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#placeholder-image')
+                  .attr('src', e.target.result)
+                  .width(250)
+                  .height(350);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+
+
+
+     $('#editorModal').on('shown.bs.modal', function () {
+  $(this).find('#editor-modal-dialog').css({width:'auto',
+                             height:'auto',
+                            'max-height':'100%'});
+});
+
+
+     </script>
+
+  <script>
+
+  $(document).ready(function(){
+
+/* 1. Visualizing things on Hover - See next part for action on click */
+$('#stars li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+/* 2. Action to perform on click */
+$('#stars li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+//The Genre Stars
+
+        $('.genre-stars li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+/* 2. Action to perform on click */
+$('.genre-stars li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+
+
+        $('#stars-expanded li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+
+        $('#stars-expanded li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+      // Writer Spotlight Stars
+
+        $('.genre-stars li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+/* 2. Action to perform on click */
+$('.genre-stars li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+
+
+        $('.spotlight-stars li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+
+        $('.spotlight-stars li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+      // EPISODIC STARS
+
+                $('.episodic-stars li').on('click', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+  var stars = $(this).parent().children('li.star');
+
+  for (i = 0; i < stars.length; i++) {
+    $(stars[i]).removeClass('selected');
+  }
+
+  for (i = 0; i < onStar; i++) {
+    $(stars[i]).addClass('selected');
+  }
+
+
+});
+
+
+        $('.episodic-stars li').on('mouseover', function(){
+  var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+  // Now highlight all the stars that's not after the current hovered star
+  $(this).parent().children('li.star').each(function(e){
+    if (e < onStar) {
+      $(this).addClass('hover');
+    }
+    else {
+      $(this).removeClass('hover');
+    }
+  });
+
+}).on('mouseout', function(){
+  $(this).parent().children('li.star').each(function(e){
+    $(this).removeClass('hover');
+  });
+});
+
+
+
+
+
+      $('.expanded-book-view').click(function(event){
+         event.stopPropagation();
+      });
+
+      $('body').click(function(){
+         $('.expanded-book-view').hide();
+      });
+
+
+      $('.continue-slide-dimensions').click(function(e){
+          var pWidth = $('.continue-slide-dimensions').outerWidth()+ 100;
+          var pOffset = $(this).offset();
+          if(e.pageX < pWidth)
+              {
+                  $('.expanded-book-view').css("display","block") ;
+          $('.expanded-book-view').css("position","absolute");
+          $('.expanded-book-view').css('top', 600);
+          $('.expanded-book-view').css("left", 0);
+                  event.stopPropagation();
+              }
+
+              else if(e.pageX <  (2*pWidth)-120 && e.pageX > pWidth)
+              {
+                  $('.expanded-book-view').css("display","block") ;
+          $('.expanded-book-view').css("position","absolute");
+          $('.expanded-book-view').css('top', 600);
+          $('.expanded-book-view').css("left", 270);
+                  event.stopPropagation();
+              }
+
+            else if( e.pageX<(3*pWidth)-120 && e.pageX >(2*pWidth)-120 && e.pageX > pWidth)
+              {
+                  $('.expanded-book-view').css("display","block") ;
+          $('.expanded-book-view').css("position","absolute");
+          $('.expanded-book-view').css('top', 600);
+          $('.expanded-book-view').css("left", 700);
+                  event.stopPropagation();
+              }
+
+            else if (e.pageX<(4*pWidth)-120 && e.pageX>(3*pWidth)-120 && e.pageX >(2*pWidth)-120 && e.pageX > pWidth)
+              {
+                  $('.expanded-book-view').css("display","block") ;
+          $('.expanded-book-view').css("position","absolute");
+          $('.expanded-book-view').css('top', 600);
+          $('.expanded-book-view').css("left", 1100);
+                  event.stopPropagation();
+              }
+
+      });
+
+
+
+       $(".ep-series-title").dotdotdot({
+    // Options go here
+            ellipsis: "\u2026 ",
+           height: "50",
+           tolerance: 0,
+           truncate: "word",
+ });
+
+               $(".featured-description").dotdotdot({
+    // Options go here
+            ellipsis: "\u2026 ",
+           height: "100",
+           tolerance: 0,
+           truncate: "word",
+ });
+
+
+
+
+  });
+  </script>

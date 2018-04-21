@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Scriblr Editor</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="trumbowyg/dist/ui/trumbowyg.min.css">
+    </head>
+    <body>
+<div class="editor-container">
+    <a href="/"><img id="editor-logo" src="posters/logo.png"></a>
+    <div id="sections-dropdown"> <span class="bold">Section <%= episode.episodeNo %>: </span><% if(!episode.title){ %>Unnamed Section<% }else{ %><%= episode.title %><% } %><img class="browse-icons" src="icons/downarrow.png">
+        <div class="section-dropdown-content">
+          <%
+            var lastEpisodeNo = 0;
+            episodes.forEach(function(episode){
+              lastEpisodeNo = episode.episodeNo;
+            });
+          %>
+        <p class="section-element bold"> Sections <a href='/newSection/<%= bookID %>/<%= lastEpisodeNo %>'><span class="coral right"> New Section</span><img  class="sections-images right plus-down" src="icons/plus-coral.png"></a></p>
+
+          <% episodes.forEach(function(episode){ %>
+            <div class="section-list-element">
+                <div class="section-list-title"><a href='/editor/<%= bookID %>/<%= episode._id %>'><span class="bold"><%= episode.episodeNo %>:</span> <% if(!episode.title){ %>Unnamed Section<% }else{ %><%= episode.title %><% } %></a></div>
+                <div class="section-list-icon-row">
+                    <div class="section-list-no-views"> 2.2K</div>
+                    <img class="section-list-eye-size" src="icons/eye-grey.png">
+                    <!--<img class="section-list-eye-size" src="icons/edit.png">-->
+                    <a href='/deleteEpisode/<%= bookID %>/<%= episode._id %>'><img class="section-list-eye-size" src="icons/delete.png"></a>
+                </div>
+            </div>
+          <% }); %>
+
+         </div>
+        </div>
+    <% if(!episode.isPublished){ %>
+      <button id="publish-button" class="generic-button submit-button"> Publish</button>
+    <% }else{ %>
+      <button id="unpublish-button" class="generic-button submit-button"> Unpublish</button>
+    <% } %>
+    <button id="editor-save-button" class="generic-button submit-button">Save</button>
+    <button id="cancel-editor-button" class="generic-button cancel-button"> Cancel </button>
+
+    <% if(episode.title){ %>
+      <div id="section-title"><input name="section-title" style='display:none;' id="section-title-box" placeholder="Section Title" type="text" value='<%= episode.title %>' />
+      <p id="final-section-name" style='display:block;' ><%= episode.title %></p></div>
+    <% }else{ %>
+      <div id="section-title"><input name="section-title" id="section-title-box" placeholder="Section Title" type="text" value='' />
+      <p id="final-section-name"></p></div>
+    <% } %>
+        <hr>
+        <div id="writing-space">
+            <textarea id="editor-writing-space" name="user-writing-space"><%= episode.content %></textarea>
+        </div>
+        </div>
+
+<% include partials/footer %>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="trumbowyg/dist/trumbowyg.min.js"></script>
+<script>
+
+  $(document).ready(function(){
+
+    $('#editor-writing-space').trumbowyg();
+
+    var sectionTitleField = document.getElementById("section-title-box");
+    var finalTitleField = document.getElementById('final-section-name');
+    var editorField = document.getElementById('editor-writing-space');
+    var input = sectionTitleField.value;
+    var bookID = '<%= bookID %>';
+    var sectionID = '<%= episode._id %>';
+
+    $('#cancel-editor-button').on('click',function(){
+      window.location.href = '/';
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        e.preventDefault();
+        input = editorField.value;
+        updateContent(input);
+      }
+    }, false);
+
+    $(document).bind('keydown', function(e) {
+      if(e.ctrlKey && (e.which == 83)) {
+        e.preventDefault();
+        alert('Ctrl+S');
+        return false;
+      }
+    });
+
+    $('#editor-save-button').on('click',function(){
+      input = editorField.value;
+      updateContent(input);
+    });
+
+    $("#section-title-box").on('keydown', function (e) {
+        if (e.keyCode == 13) {
+
+          input = sectionTitleField.value;
+
+          updateTitle(input);
+
+        }
+    });
+
+    $('#publish-button').click(function(){
+      input = editorField.value;
+      publishEpisode(input);
+    });
+
+    $('#unpublish-button').click(function(){
+      unpublishEpisode();
+    });
+
+    $("#final-section-name").click(function(event){
+        sectionTitleField.style.display="block";
+        finalTitleField.style.display="none";
+        sectionTitleField.focus();
+    });
+
+    $('#section-title-box').focusout(function(){
+      input = sectionTitleField.value;
+
+      updateTitle(input);
+
+    });
+
+    function updateContent(input){
+
+      $.ajax({
+        type: 'POST',
+        url: '/sectionContent',
+        data: 'bookID='+bookID+'&secID='+sectionID+'&sectionContent='+input,
+        datatype: "json",
+        success: function(response){
+          location.reload();
+        }
+      });
+
+    }
+
+    function publishEpisode(input){
+
+      $.ajax({
+        type: 'POST',
+        url: '/publishEpisode',
+        data: 'bookID='+bookID+'&secID='+sectionID,
+        datatype: "json",
+        success: function(response){
+          updateContent(input);
+          location.reload();
+        }
+      });
+
+    }
+
+    function unpublishEpisode(){
+
+      $.ajax({
+        type: 'POST',
+        url: '/unpublishEpisode',
+        data: 'bookID='+bookID+'&secID='+sectionID,
+        datatype: "json",
+        success: function(response){
+          location.reload();
+        }
+      });
+
+    }
+
+    function updateTitle(input){
+
+      finalTitleField.innerHTML = input;
+      sectionTitleField.style.display = 'none';
+      finalTitleField.style.display = 'block';
+
+      $.ajax({
+        type: 'POST',
+        url: '/sectionTitle',
+        data: 'bookID='+bookID+'&secID='+sectionID+'&sectionTitle='+input,
+        datatype: "json",
+        success: function(response){
+          location.reload();
+        }
+      });
+
+    }
+
+  });
+
+</script>
