@@ -20,8 +20,9 @@ var express       = require('express'),
     summedRatings = 0,
     userViewBooks = [];
 
-mongoose.connect('mongodb://localhost/scriblr');
-
+//mongoose.connect('mongodb://localhost/scriblr');
+//mongodb://<dbuser>:<dbpassword>@ds151169.mlab.com:51169/scriblrdb
+mongoose.connect('mongodb://utkarsh:Ycombinator1*@ds151169.mlab.com:51169/scriblrdb');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
   secret: "Shh. We are the productivity gods/beasts.",
