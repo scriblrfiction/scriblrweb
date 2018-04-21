@@ -1,0 +1,481 @@
+<script>
+
+            function display(ele) {
+        if(event.key ==='Enter')
+            {
+                document.getElementById('final-pen-name').innerHTML = ele.value;
+                document.getElementById("pen-name-box").style.display = "none";
+                      $("#final-pen-name").click(function(){
+                                document.getElementById("pen-name-box").style.display="block";
+                               document.getElementById("final-pen-name").style.display="none";
+                });
+
+                 document.getElementById("final-pen-name").style.display="block";
+            }
+
+
+    }
+
+</script>
+
+<script>
+  $(document).ready(function(){
+
+    var inputProPic = document.getElementById('file-input');
+    var inputCoverPic = document.getElementById('file-input2');
+    var curUserID = $('#theUserID').attr('data-id');
+    var dropmat = document.getElementById('dropmat');
+    var aboutBox = document.getElementById('bio-box');
+    var emailInputField = document.getElementById('newEmailField');
+    var emailError = document.getElementById('emailError');
+    var alphaExp = /^[a-zA-Z0-9]+$/;
+    var numberExp = /^[0-9]+$/;
+    var emailExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(!'<%= curUser.gender %>' == ''){
+      $('#genPick').val('<%= curUser.gender %>');
+    }
+
+    updateCount();
+
+    $('#pen-name-box').focusout(function(){
+      var penName = document.getElementById('pen-name-box');
+
+      if(penName.value.length == 0){
+        alert('Please enter a pen name');
+      }else{
+        $.ajax({
+          type: 'POST',
+          url:  '/updatePenName',
+          data: 'penname='+penName.value+'&curUserID='+curUserID,
+          datatype: 'json',
+          success: function(response){
+            if(response == 1){
+              window.location.reload();
+            }else{
+              alert('Failed to update pen name');
+            }
+          }
+        });
+      }
+
+    });
+
+    $("#final-pen-name").click(function(){
+      document.getElementById("pen-name-box").style.display="block";
+      document.getElementById("pen-name-box").focus();
+     document.getElementById("final-pen-name").style.display="none";
+   });
+
+    $('#file-input').on('change',function(){
+      readURL(inputProPic);
+      dropmat.value = '';
+      dropmat.value = curUserID;
+      document.getElementById('newProPic').submit();
+    });
+
+    $('#file-input2').on('change',function(){
+      dropmat.value = '';
+      dropmat.value = curUserID;
+      document.getElementById('newCoverPic').submit();
+    });
+
+    $('#edit-email-button').on('click',function(event){
+      var modalBackdrop = document.getElementById('modalBackdrop');
+      var emailModal = document.getElementById('emailModal');
+
+      modalBackdrop.style.display = 'block';
+      emailModal.style.display = 'block';
+
+    });
+
+    $('#edit-pass-button').on('click',function(event){
+      var modalBackdrop = document.getElementById('modalBackdrop');
+      var passwordModal = document.getElementById('passwordModal');
+
+      modalBackdrop.style.display = 'block';
+      passwordModal.style.display = 'block';
+
+    });
+
+    $('#passToggle').on('click',function(){
+      var passField = document.getElementById('newPasswordField');
+      var toggleBtn = document.getElementById('passToggle');
+
+      if(passField.getAttribute('type')=='text'){
+        passField.setAttribute('type','password');
+        toggleBtn.innerHTML = 'Show';
+      }else{
+        passField.setAttribute('type','text');
+        toggleBtn.innerHTML = 'Hide';
+      }
+
+    });
+
+    $('#newEmailField').focusout(function(){
+
+      checkEmail();
+
+    });
+
+    function checkEmail(){
+
+      if(emailInputField.value.length == 0){
+        emailError.innerHTML = 'Email cannot be empty';
+        emailError.style.display = 'block';
+        emailInputField.focus();
+      }else if(emailInputField.value.substring(0,1).match(numberExp)){
+        emailError.innerHTML = 'Email must begin with an alphabet';
+        emailError.style.display = 'block';
+        emailInputField.focus();
+      }else if(!emailInputField.value.match(emailExp)){
+        emailError.innerHTML = 'Please enter a valid email address';
+        emailError.style.display = 'block';
+        emailInputField.focus();
+      }else{
+        emailError.innerHTML = '';
+        emailError.style.display = 'none';
+        $.ajax({
+          type: 'POST',
+          url:  '/updateProfileEmail',
+          data: 'email='+emailInputField.value+'&curUserID='+curUserID,
+          datatype: 'json',
+          success: function(response){
+            if(response == 1){
+              window.location.reload();
+            }else if(response == 2){
+              //Entered same email as current email
+              emailError.innerHTML = '';
+              emailError.style.display = 'none';
+            }else if(response == 3){
+              emailError.innerHTML = 'Email already taken';
+              emailError.style.display = 'block';
+            }else{
+              alert('Failed to update profile email');
+            }
+          }
+        });
+      }
+
+    }
+
+    $('#modalBackdrop').on('click',function(event){
+      var modalBackdrop = document.getElementById('modalBackdrop');
+      var emailModal = document.getElementById('emailModal');
+      var passwordModal = document.getElementById('passwordModal');
+
+      modalBackdrop.style.display = 'none';
+      emailModal.style.display = 'none';
+      passwordModal.style.display = 'none';
+
+    });
+
+    $('#bio-box').keyup(updateCount);
+    $('#bio-box').keydown(updateCount);
+
+    $('#bio-box').focusout(function(){
+      var input = aboutBox.value;
+      updateAbout(input);
+    });
+
+    $('#locPick').on('change',function(){
+      var locField = document.getElementById('locPick');
+
+      $.ajax({
+        type: 'POST',
+        url:  '/updateProfileLoc',
+        data: 'loc='+locField.value+'&curUserID='+curUserID,
+        datatype: 'json',
+        success: function(response){
+          if(response == 1){
+            window.location.reload();
+          }else{
+            alert('Failed to update profile location');
+          }
+        }
+      });
+
+    });
+
+    $('#genPick').on('change',function(){
+      var genField = document.getElementById('genPick');
+
+      $.ajax({
+        type: 'POST',
+        url:  '/updateProfileGen',
+        data: 'gen='+genField.value+'&curUserID='+curUserID,
+        datatype: 'json',
+        success: function(response){
+          if(response == 1){
+            window.location.reload();
+          }else{
+            alert('Failed to update profile gender');
+          }
+        }
+      });
+
+    });
+
+    $('#date-box').on('change',function(event){
+      var dateBox = document.getElementById('date-box');
+      var dob = new Date(dateBox.value);
+      var dobTime = dob.getTime();
+      var oldTime = new Date().getTime() - (100 * 12 * 30 * 24 * 60 * 60 * 1000);
+
+      if(dobTime < oldTime){
+        alert('Please enter a valid date of birth');
+      }else{
+        updateDOB(dob);
+      }
+
+    });
+
+    $('#newProPic').submit(function(event){
+      event.preventDefault();
+      $(this).ajaxSubmit({
+        success: function(response){
+          console.log('sent profile pic');
+          window.location.href = '/';
+        }
+      });
+
+    });
+
+    function updateDOB(dob){
+
+      var date = dob.getDate();
+      var month = dob.getMonth();
+      var year = dob.getFullYear();
+
+      var d,m,y;
+
+      if(date<10){
+        d = '0'+date;
+      }else{
+        d = date;
+      }
+
+      if(month<10){
+        m = '0'+(month+1);
+      }else{
+        m = month+1;
+      }
+
+      y = year;
+
+      var finalDate = y+'-'+m+'-'+d;
+
+      $.ajax({
+        type: 'POST',
+        url: '/updateProfileDOB',
+        data: 'dob='+finalDate+'&curUserID='+curUserID,
+        datatype: 'json',
+        success: function(response){
+          if(response==1){
+            window.location.reload();
+          }else{
+            alert('Failed to update date of birth');
+          }
+        }
+      });
+
+    }
+
+    function updateCount() {
+      var cs = $('#bio-box').val().length;
+      $('#characters').text(cs);
+    }
+
+    function updateAbout(input){
+
+      $.ajax({
+        type: 'POST',
+        url: '/updateProfileAbout',
+        data: 'proDesc='+input+'&curUserID=<%= curUser._id %>',
+        datatype: 'json',
+        success: function(response){
+          if(response==1){
+            window.location.reload();
+          }else{
+            alert('Failed to update bio');
+          }
+        }
+      });
+
+    }
+
+    function readURL(input) {
+     if (input.files && input.files[0]) {
+         var reader = new FileReader();
+
+         reader.onload = function (e) {
+             $('#profile-placeholder-image')
+                 .attr('src', e.target.result)
+                 .width(100)
+                 .height(100)
+             .borderRadius('50%');
+         };
+
+         reader.readAsDataURL(input.files[0]);
+         }
+     }
+
+  });
+</script>
+
+<script>
+
+           function display(ele) {
+        if(event.key ==='Enter')
+            {
+                document.getElementById('final-pen-name').innerHTML = ele.value;
+                document.getElementById("pen-name-box").style.display = "none";
+                 document.getElementById("final-pen-name").style.display="block";
+            }
+
+
+    }
+
+
+              function display2(ele) {
+
+
+                   if(event.key ==='Enter')
+            {
+                document.getElementById('final-email-id').innerHTML = ele.value;
+                document.getElementById("email-box").style.display = "none";
+                      $("#final-email-id").click(function(){
+                                document.getElementById("email-box").style.display="block";
+                               document.getElementById("final-email-id").style.display="none";
+                });
+
+                 document.getElementById("final-email-id").style.display="block";
+            }
+
+
+    }
+
+
+
+              function display3(ele) {
+
+
+                   if(event.key ==='Enter')
+            {
+                document.getElementById('final-password').innerHTML = ele.value;
+                document.getElementById("password-box").style.display = "none";
+                      $("#final-password").click(function(){
+                                document.getElementById("password-box").style.display="block";
+                               document.getElementById("final-password").style.display="none";
+                });
+
+                 document.getElementById("final-password").style.display="block";
+            }
+
+
+    }
+
+
+              function display4(ele) {
+
+
+                   if(event.key ==='Enter')
+            {
+                document.getElementById('final-bio').innerHTML = ele.value;
+                document.getElementById("bio-box").style.display = "none";
+                      $("#final-bio").click(function(){
+                                document.getElementById("bio-box").style.display="block";
+                               document.getElementById("final-bio").style.display="none";
+                });
+
+                 document.getElementById("final-bio").style.display="block";
+            }
+
+
+    }
+
+
+
+    function showFunction() {
+var x = document.getElementById("password-box");
+if (x.type === "password") {
+    x.type = "text";
+} else {
+    x.type = "password";
+}
+}
+
+
+    function showFunction2() {
+var x = document.getElementById("final-password");
+if (x.type === "password") {
+    x.type = "text";
+} else {
+    x.type = "password";
+}
+}
+
+    function validate() {
+
+           var word = $('.social-link-text-box').val();
+            var fblink = "www.facebook.com/";
+            var twitlink = "www.twitter.com/";
+            var instlink = "www.instagram.com/";
+            var tumblink = "www.tumblr.com/";
+
+            if(word.indexOf(fblink)>=0)
+                {
+                    alert("valid!");
+                }
+
+            else if(word.indexOf(twitlink)>=0)
+                {
+                    alert("valid!");
+                }
+
+            else if(word.indexOf(instlink)>=0)
+                {
+                    alert("valid!");
+                }
+            else if(word.indexOf(tumblink)>=0)
+                {
+                    alert("valid!");
+                }
+
+           else {
+              console.log("error");
+           }
+
+
+    }
+
+
+
+
+
+    $(document).ready(function(){
+          $('.social-link-clicker').click(function(){
+
+       $('.social-link-text-box').show();
+        $('.hide-social-links').show();
+        $('.save-social-links').show();
+
+
+    });
+
+        $('.hide-social-links').click(function(){
+           $('.social-link-text-box').hide();
+            $('.hide-social-links').hide();
+            $('hide-social-links').hide();
+        });
+
+
+    });
+
+
+
+
+
+
+
+</script>

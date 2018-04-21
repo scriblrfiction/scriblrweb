@@ -1,0 +1,102 @@
+<div class="new-story-container">
+          <div class="new-story-title"> New Story </div>
+          <form action='/new' method='POST' enctype='multipart/form-data' id='newBookForm'>
+          <div class="editor-modal-left">
+
+                    <div class="image-upload">
+              <label for="file-input">
+                  <img id="placeholder-image" src="posters/coverselector.png">
+              </label>
+
+              <input id="file-input" type="file" name='bookCover' accept="image/jpeg"/>
+          </div>
+        <div class="cover-guideline">
+              <p> Visit our <span class="underlined"> cover guidelines</span> if you're having trouble creating or choosing a cover for your story.</p>
+
+      </div>
+
+          </div>
+
+          <div class="editor-modal-right">
+              <label class="editor-form-element editor-text-header" for="title"><strong>Title</strong>  </label>
+              <input type="text" name="title" id="title" class="editor-form-element" required>
+              <div class="clear"></div>
+              <label class="editor-form-element editor-text-header desc-header-new" for="description"><strong> Description</strong></label>
+              <textarea  class="editor-form-element" id="editor-description" name="description" placeholder="Write a concise and attention-grabbing description for your story to tell reader what it's about." required></textarea>
+
+              <label class="editor-form-element editor-text-header" for="tags" id="tags-label"><strong> Tags</strong></label>
+              <input type ="tags" name="hashtags" id="tags-box" placeholder="Enter story tags here." class="editor-form-element">
+              <input type='text' id='tagval' name='tags' style='display:none;'/>
+              <input type='text' id='dropmat' name='dropmat' style='display:none;'/>
+              <script>[].forEach.call(document.querySelectorAll('input[type="tags"]'), tagsInput);</script>
+
+              <div class="lone-select-wrap">
+                     <label class="editor-new-header" for="category-dropdown" id="category-dropdown-header"><strong>Category:</strong></label>
+              <select name="categorydropdown" id="category-dropdown" form="editorform" required>
+                <% categories.forEach(function(category){ %>
+                  <option value="<%= category.category %>"><%= category.category %></option>
+                <% }); %>
+              </select>
+
+              </div>
+
+                <div id="help-text-categories">
+              <p id="guideline-help"> If you need help determining which category your story fits in, visit our <span class="underlined">category guidelines.</span> </p>
+
+              </div>
+
+              <div class="new-select-container">
+
+                   <div class="new-select-wrap">
+
+                        <label class="editor-new-header" for="genre-dropdown" id="genre-dropdown-header"><strong>Genre:</strong></label>
+              <select name="genre-dropdown" id="genre-dropdown" form="editorform" required>
+                    <% genres.forEach(function(genre){ %>
+                      <option value="<%= genre.genre %>"><%= genre.genre %></option>
+                    <% }); %>
+              </select>
+
+              </div>
+
+                    <div class="new-select-wrap">
+
+                          <label class="editor-new-header" for="language-dropdown" id="language-dropdown-header"><strong>Language:</strong></label>
+              <select name="language-dropdown" id="language-dropdown" form="editorform" required>
+                    <option value="English">English</option>
+              </select>
+
+              </div>
+
+                    <div class="new-select-wrap select-right-up">
+
+                              <label class="editor-new-header" for="copyright-dropdown" id="copyright-dropdown-header"><strong>Copyright:</strong></label>
+              <select name="copyright-dropdown" id="copyright-dropdown" form="editorform required">
+                    <option value="no">Public Domain</option>
+                    <option value="yes">Private</option>
+              </select>
+
+              </div>
+
+              </div>
+
+              <p id="mature-header">Mature Content:</p>
+                <div id="mature-toggle">
+              <label class="switch editor-form-element">
+                    <input type="checkbox" id='isMat'>
+                    <span class="slider round"></span>
+                  </label>
+              </div>
+
+
+              <div id="help-text-mature">
+              <p id="guideline-mature"> If your story contains graphic descriptions of violence, strong language, secuality and/or other mature themes please keep this setting on. For further details, visit our  <span class="underlined">content guidelines.</span> </p>
+
+              </div>
+              <div id="button-group">
+              <button class="generic-button cancel-button" data-dismiss="modal" id='cancelBtn'> Cancel </button>
+              <button class="generic-button submit-button" id='newSaveBtn'> Save </button>
+              </div>
+
+          </div>
+</form>
+      </div>

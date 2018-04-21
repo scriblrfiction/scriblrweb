@@ -1,0 +1,416 @@
+<% include partials/header %>
+
+    <div class="public-profile-container">
+        <div class="banner-image" style='background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(<%= pubUser.coverUrl %>) no-repeat center center;'>
+            <img class="profile-on-banner" src="<%= pubUser.imageUrl %>">
+            <div class="boxed-rule">
+            <div class="profile-name-on-banner"><% if(pubUser.penName){ %><%= pubUser.penName %><%}else{%>Pen Name not set<%}%></div>
+            <div class="username-on-banner"> @<%= pubUser.userName %></div>
+            </div>
+            <div class="public-table">
+                <div class="public-prof-col">
+                    <div class="public-table-headers"> Followers</div>
+                    <div class="public-table-values"> 24.2K</div>
+                </div>
+                <div class="public-prof-col">
+                    <div class="public-table-headers"> Following</div>
+                    <div class="public-table-values"> 232</div>
+                </div>
+                <div class="public-prof-col">
+                    <div class="public-table-headers"> Stories</div>
+                    <div class="public-table-values"> 13</div>
+                </div>
+            </div>
+        </div>
+        <div class="tabs-box downpub20">
+          <ul class="nav nav-pills" id="public-tabs-ul">
+  <li class="active expanded-tabs lefter public-expanded-tabs"><a class="greyed-links smalligrey" data-toggle="pill" href="#public-about-tab">About</a></li>
+  <li class=" expanded-tabs public-expanded-tabs"><a class="greyed-links smalligrey" data-toggle="pill" href="#activity-tab">Activity</a></li>
+  <li class=" expanded-tabs public-expanded-tabs"><a class="greyed-links smalligrey" data-toggle="pill" href="#public-similar-tab">Similar</a></li>
+</ul>
+</div>
+    <button class="public-spotlight-follow-button"><i class="fa fa-user" aria-hidden="true"></i>Follow</button>
+    <button class="public-message-button"><i src="icons/sendmsg.ico"></i>Message</button>
+
+    <div class="tab-content">
+  <div id="public-about-tab" class="tab-pane fade in active">
+
+         <div class="public-info-holder">
+        <p class="public-prof-bio"><%= pubUser.about %></p>
+
+               <div class="social-links-profile public-social-positioning">
+                <img  class="social-links" src="icons/social-links/fb.png">
+                <img  class="social-links circle-ig"  src="icons/social-links/ig.png">
+                <img  class="social-links"  src="icons/social-links/tumblr.png">
+                <img  class="social-links"  src="icons/social-links/twitter.png">
+                <img  class="social-links"  src="icons/social-links/gplus.png">
+            </div>
+
+             <div class="public-box-right-info">
+                 <div class="public-box-right-element">
+
+                     <div class="public-info-header"> Joined</div>
+                    <div class="public-info-value"> 12th December,2016</div>
+                 </div>
+
+                 <div class="public-box-right-element">
+
+                     <div class="public-info-header"> Views</div>
+                    <div class="public-info-value"> 432</div>
+                 </div>
+
+                 <div class="public-box-right-element">
+
+                     <div class="public-info-header"> Country</div>
+                    <div class="public-info-value"><%= pubUser.location %></div>
+                 </div>
+
+
+             </div>
+
+             <div class="profile-coral-headers  profile-header-alignment"><span class="profile-coral-underline">Stories</span></div>
+
+             <div class="public-stories-row">
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://i.pinimg.com/736x/7b/ac/e6/7bace6df5193ffdfcea5c5eb1c7caab1--reading-recovery-cover-books.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://spark.adobe.com/images/landing/examples/architecture-book-cover.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+                 </div>
+
+                         <div class="public-stories-row">
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://shortlist.imgix.net/app/uploads/2012/06/24225518/the-50-coolest-book-covers-41.jpg?w=1200&h=1&fit=max&auto=format%2Ccompress">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://i.pinimg.com/736x/c0/26/c3/c026c33fbb06e765a522c6b9c4d518b6--book-posters-art-design.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+                 </div>
+
+                         <div class="public-stories-row">
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://s-media-cache-ak0.pinimg.com/originals/a3/f0/05/a3f005aa0a30c6e87d9ea68a019017d2.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFVIiDyAAP8Pqw7-3wwX2eYXZ0jxclJRmneIw_rQGMCiEZC-mU">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+                 </div>
+
+                         <div class="public-stories-row">
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="http://www.writersedit.com/wp-content/uploads/2014/08/what-the-ground-cant-hold.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://s-media-cache-ak0.pinimg.com/originals/b6/fe/16/b6fe1606a8513cff312a4db65bb60cc2.png">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+                 </div>
+
+                         <div class="public-stories-row">
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://marketplace.canva.com/MACH-Ixwiec/1/0/thumbnail_large/canva-minimalist-photo-wattpad-book-cover-MACH-Ixwiec.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+
+                 <div class="rec-slide-dimensions">
+        <img class="rec-image" src="https://i.pinimg.com/736x/2a/6a/e5/2a6ae5f1d9da32c102cb395942ba5615--anthony-doerr-french-girls.jpg">
+        <div class="rec-write-titles"> Perks of being a Wallflower</div>
+        <div class="rec-write-authors"> Justin Phillips</div>
+         <div class='rating-stars text-center'>
+    <ul id='stars'>
+      <li class='star' title='Poor' data-value='1'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Fair' data-value='2'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Average' data-value='3'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Good' data-value='4'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+      <li class='star' title='Excellent' data-value='5'>
+        <i class='fa fa-star fa-fw'></i>
+      </li>
+    </ul>
+  </div>
+        <div class="views"><img class="standard-element-icon" src="icons/eye-grey.png"><span class="view-number">2.3M</span> </div>
+       <p class="non-expanded-summary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel faucibus mi. Suspendisse imperdiet quis eros eget condimentum. Suspendisse maximus diam at turpis mollis, vel dapibus tortor ornare. </p>
+
+    </div>
+                 </div>
+
+
+    </div>
+  </div>
+  <div id="episodes-tab" class="tab-pane fade">
+    <h3>Menu 1</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="similar-tab" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+
+    </div>
+
+           <footer class="smaller">
+            <div> <img class="footer-logo" src="posters/logo.png"></div>
+           <i class="fa fa-facebook" aria-hidden="true"></i>
+           <i class="fa fa-instagram" aria-hidden="true"></i>
+           <i class="fa fa-twitter" aria-hidden="true"></i>
+           <p class="copyright-footer"><i class="fa fa-copyright" aria-hidden="true"></i> Scriblr,2017.</p>
+
+           <div class="footer-right-links">
+           <a class="footer-links" href="#"> About</a>
+            <a class="footer-links" href="#"> Jobs</a>
+               <a class="footer-links" href="#"> Team</a>
+            <a class="footer-links" href="#"> Terms & Conditions</a>
+               <a class="footer-links" href="#"> Help</a>
+           </div>
+      </footer>
+
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script src="https://use.fontawesome.com/8f37611cde.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js">
+    </script>
+    <script src="js/countrypicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/3.1.0/jquery.dotdotdot.js"></script>
+
+    <script>
+
+        $(document).ready(function(){
+
+              $('#public-tabs-ul a[href="#public-about-tab"]').tab('show')
+        });
+
+
+
+    </script>
+    </body>
+</html>

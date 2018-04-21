@@ -1,0 +1,251 @@
+<% include partials/header %>
+
+  <div class="profile-container">
+    <div class="profile-picture-and-name">
+
+          <form action='/profilePic' method='POST' enctype='multipart/form-data' id='newProPic'>
+            <div class="image-upload">
+                <label for="file-input">
+                    <img id="profile-placeholder-image" src="<%= curUser.imageUrl %>">
+                </label>
+
+                <input id="file-input" type="file" name='proPic' accept="image/jpeg" />
+                <input type='text' id='dropmat' name='dropmat' style='display:none;'/>
+            </div>
+          </form>
+
+        <div id="pen-title">
+        <% if(curUser.penName){ %><input name="pen-title" id="pen-name-box" placeholder="Enter Pen Name." style='display: none;' value='<%= curUser.penName %>' type="text" onkeydown="display(this)"><p id="final-pen-name"><%= curUser.penName %></p><% }else{ %><input name="pen-title" id="pen-name-box" placeholder="Enter Pen Name." value='<%= curUser.penName %>' type="text" onkeydown="display(this)"><p id="final-pen-name"></p><% } %></div>
+        </div>
+
+    <div class="profile-coral-headers"><span class="profile-coral-underline">Profile Information</span>
+
+
+        </div>
+        <div class="profile-information">
+        <div class="pinfo-header"> Username </div>
+        <div class="pinfo-header-value"> @<%= curUser.userName %></div>
+
+        <div class="pinfo-header">About<span id="characters"></span><span id="max-characters">entered out of 350.</span></div>
+            <div id="bio-title"><textarea  maxlength="350" name="bio-title" id="bio-box" placeholder="Enter your bio here." type="text" onkeydown="display4(this)"><%= curUser.about %></textarea>
+        <p id="final-bio" onkeydown="remove(this)"></p></div>
+
+            <div class="social-links-profile">
+                <a href="#"><img  class="social-links social-link-clicker" src="icons/social-links/fb.png"></a>
+                <a href="#"><img  class="social-links circle-ig social-link-clicker"  src="icons/social-links/ig.png"></a>
+                <a href="#"><img  class="social-links social-link-clicker"  src="icons/social-links/tumblr.png"></a>
+                <a href="#"><img  class="social-links social-link-clicker"  src="icons/social-links/twitter.png"></a>
+                <a href="#"><img  class="social-links social-link-clicker"  src="icons/social-links/gplus.png"></a>
+                <form action="" method="post" onsubmit="validate()">
+
+                    <input type="text" class="social-link-text-box" name="sociallinkvalue" placeholder="Enter the social-link here.">
+                <button class="hide-social-links">Hide</button>
+                <button class="save-social-links" type="submit" onclick="validate()"> Save</button>
+
+                </form>
+
+            </div>
+
+            <div class="view-public-profile"><a class="grey-profile-links" href="/profile/<%= curUser.userName %>"> View Public Profile</a></div>
+            <div class="view-public-profile upper-profile"><form action='/profileBannerPic/<%= curUser._id %>' method='POST' enctype='multipart/form-data' id='newCoverPic'><label for="file-input2"><a class="grey-profile-links" id='bannerLink'>Change Banner Image</a></label>
+              <input id="file-input2" type="file" style='display: none;' name='proCoverPic' accept="image/jpeg" /><input type='text' id='dropmat' name='dropmat' style='display:none;'/></form></div>
+        </div>
+
+        <div class="profile-coral-headers up20"><span class="profile-coral-underline">Account Information</span>
+
+        </div>
+        <div class="acc-info-element">
+        <div class="pinfo-element-header"> Email</div>
+       <div id="email-title"><%= curUser.email %></div>
+         <button id="edit-email-button" class="profile-element-edit-button"> Edit</button>
+
+    </div>
+
+           <div class="acc-info-element">
+        <div class="pinfo-element-header"> Password</div>
+           <div id="password-title">
+             &lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;
+           </div>
+         <button class="profile-element-edit-button" id='edit-pass-button'> Edit</button>
+
+    </div>
+
+
+           <div class="acc-info-element">
+        <div class="pinfo-element-header"> Date of Birth</div>
+          <div id="date-title"><input name="date-title" id="date-box" value="<%= curUser.dateOfBirth %>" type="date" onkeydown="display4(this)">
+        <p id="final-date" onkeydown="remove(this)"></p></div>
+
+
+    </div>
+
+           <div class="acc-info-element">
+        <div class="pinfo-element-header"> Location</div>
+              <select id='locPick' class="selectpicker countrypicker"
+
+            data-live-search="true"
+
+            data-default="<%= curUser.location %>"
+
+            data-flag="true">
+
+</select>
+
+
+    </div>
+
+           <div class="acc-info-element">
+        <div class="pinfo-element-header"> Gender</div>
+       <select class="gender-pick-profile" id='genPick'>
+         <option> Male</option>
+         <option> Female</option>
+         <option> Other</option>
+       </select>
+
+    </div>
+         <div class="profile-coral-headers up20 up50 up-the-profile"><span class="profile-coral-underline"><span class="textmover">Membership</span></span>
+
+        </div>
+
+              <div class="acc-info-element">
+        <div class="pinfo-element-header down21"> Membership Version</div>
+        <div class="pinfo-element-header-value"> Free</div>
+         <button class="subscribe-coral-button"> Subscribe to Scriblr Premium</button>
+
+    </div>
+
+              <div class="acc-info-element">
+        <div class="pinfo-element-header"> Payment Method</div>
+        <div class="pinfo-element-header-value"> MasterCard: **** **** **** 7699 </div>
+         <button class="profile-element-edit-button"> Update</button>
+
+    </div>
+
+         <div class="profile-coral-headers up20 up50 up-the-profile"><span class="profile-coral-underline"><span class="textmover">Notifications & Updates</span></span>
+
+        </div>
+
+        <div class="notif-three-element">
+
+                    <div class="acc-info-element">
+        <div class="pinfo-element-header"> Shelf Story Updates</div>
+        <div class="pinfo-element-header-value"> Get email updates about updates to stories saved in your Shelf. </div>
+           <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                    <div class="acc-info-element">
+        <div class="pinfo-element-header"> Writer Story Updates</div>
+        <div class="pinfo-element-header-value"> Get email updates about new stories by writers you follow. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                    <div class="acc-info-element">
+        <div class="pinfo-element-header"> Scriblr Originals</div>
+        <div class="pinfo-element-header-value"> Get email updates about new Scriblr Originals and formats.</div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+
+        </div>
+
+        <div class="notif-three-element smaller-notif">
+
+                    <div class="acc-info-element">
+        <div class="pinfo-element-header"> Follower and View Milestones</div>
+        <div class="pinfo-element-header-value"> Get email updates when you reach major follower and view milestones. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                    <div class="acc-info-element">
+        <div class="pinfo-element-header"> Message Updates</div>
+        <div class="pinfo-element-header-value"> Get email updates about new messages. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                      <div class="acc-info-element">
+        <div class="pinfo-element-header"> Scriblr Originals</div>
+        <div class="pinfo-element-header-value"> Get email updates about new Scriblr Originals and formats. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+
+        </div>
+
+        <div class="notif-three-element smaller-notif2">
+
+                      <div class="acc-info-element">
+        <div class="pinfo-element-header"> Scriblr Updates</div>
+        <div class="pinfo-element-header-value"> Get email updates about major Scriblr news. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                      <div class="acc-info-element">
+        <div class="pinfo-element-header"> Recommended Stories</div>
+        <div class="pinfo-element-header-value"> Get email updates about recommended stories for you. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+                      <div class="acc-info-element">
+        <div class="pinfo-element-header"> Analytics</div>
+        <div class="pinfo-element-header-value"> Get weekly email updates about the major statistics of your profile. </div>
+         <div class="profile-toggle">
+                <label class="switch editor-form-element">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                </div>
+
+    </div>
+    </div>
+    <div id='modalBackdrop'></div>
+    <div id='emailModal'>
+      <label id='emailError'>Error</label>
+      <input type='text' id='newEmailField' value='<%= curUser.email %>' placeholder='Enter your email here' />
+    </div>
+    <div id='passwordModal'>
+      <input type='password' id='newPasswordField' value='Change Password' placeholder='Enter your password here' />
+      <button id='passToggle'>Show</button>
+    </div>
+
+<% include partials/footer %>
+<% include partials/profileSettingsScripts %>
