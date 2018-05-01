@@ -45,7 +45,7 @@ app.use('*/posters',express.static('public/posters'));
 app.use('*/slick',express.static('public/slick'));
 app.use('*/uploads',express.static('public/uploads'));
 
-seedDB();
+//seedDB();
 
 function loadUserBooks(theUser){
   Book.find({
