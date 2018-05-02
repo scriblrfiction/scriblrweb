@@ -20,8 +20,9 @@ var express       = require('express'),
     summedRatings = 0,
     userViewBooks = [];
 
-mongoose.connect('mongodb://localhost/scriblr');
-
+//mongoose.connect('mongodb://localhost/scriblr');
+//mongodb://<dbuser>:<dbpassword>@ds151169.mlab.com:51169/scriblrdb
+mongoose.connect('mongodb://utkarsh:Ycombinator1*@ds151169.mlab.com:51169/scriblrdb');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
   secret: "Shh. We are the productivity gods/beasts.",
@@ -44,7 +45,7 @@ app.use('*/posters',express.static('public/posters'));
 app.use('*/slick',express.static('public/slick'));
 app.use('*/uploads',express.static('public/uploads'));
 
-seedDB();
+//seedDB();
 
 function loadUserBooks(theUser){
   Book.find({
@@ -139,6 +140,8 @@ function updateUserViews(){
   }
 }
 
+
+
 app.use(function(req,res,next){
   Book.find({},function(err,books){
     if(err){console.log(err);}else{
@@ -212,6 +215,23 @@ app.get('/',function(req,res){
     }
   });
 });
+
+app.get('/list/books',function(req,res){
+  console.log('Get request received for Books: ');
+  Book.find({}, function(err, books) {
+    if(err){
+      res.send(err)
+    } else {
+      var BookMap = {};
+      books.forEach(function(book) {
+        BookMap[book._id] = book;
+      });
+      res.send(BookMap);
+    };
+  });
+});
+
+
 
 app.post('/register', function(req,res){
   var imageUrl = req.protocol + '://' + req.get('host') + '/uploads/profileImages/noimage.jpg';
@@ -287,7 +307,6 @@ function isLoggedIn(req,res,next){
 
 app.post('/getRating',function(req,res){
   console.log('Post request received for BookID: '+req.body.bookID);
-
   Book.findOne({
     _id: req.body.bookID
   }, function(err, foundBook){
