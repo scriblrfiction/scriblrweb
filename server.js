@@ -227,10 +227,9 @@ app.get('/list/books',function(req,res){
         BookMap[book._id] = book;
       });
       res.send(userMap);
-    });
-    }
-
-}
+    };
+  });
+});
 
 
 
