@@ -218,15 +218,15 @@ app.get('/',function(req,res){
 
 app.get('/list/books',function(req,res){
   console.log('Get request received for Books: ');
-  Book.find({}, function(err, book) {
+  Book.find({}, function(err, books) {
     if(err){
       res.send(err)
     } else {
       var BookMap = {};
-      books.forEach(function(user) {
+      books.forEach(function(book) {
         BookMap[book._id] = book;
       });
-      res.send(userMap);
+      res.send(BookMap);
     };
   });
 });
