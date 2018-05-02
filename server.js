@@ -140,6 +140,8 @@ function updateUserViews(){
   }
 }
 
+
+
 app.use(function(req,res,next){
   Book.find({},function(err,books){
     if(err){console.log(err);}else{
@@ -213,6 +215,24 @@ app.get('/',function(req,res){
     }
   });
 });
+
+app.get('/list/books',function(req,res){
+  console.log('Get request received for Books: ');
+  Book.find({}, function(err, book) {
+    if(err){
+      res.send(err)
+    } else {
+      var BookMap = {};
+      books.forEach(function(user) {
+        BookMap[book._id] = book;
+      });
+      res.send(userMap);
+    });
+    }
+
+}
+
+
 
 app.post('/register', function(req,res){
   var imageUrl = req.protocol + '://' + req.get('host') + '/uploads/profileImages/noimage.jpg';
@@ -288,7 +308,6 @@ function isLoggedIn(req,res,next){
 
 app.post('/getRating',function(req,res){
   console.log('Post request received for BookID: '+req.body.bookID);
-
   Book.findOne({
     _id: req.body.bookID
   }, function(err, foundBook){
